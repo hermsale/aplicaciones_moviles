@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,18 +22,28 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-//        Esto ajusta los margenes con la barra de estado y navegacion
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            Log.d("saludo!","Corriendo log");
-            return insets;
-        });
+        Log.i("Testing","Probando Mensajes");
 
-        Button btnIniciar = findViewById(R.id.btnIniciar);
+//        creo un linear
+//        el contexto es this, ya que esta dentro del activity
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL); // LE CAMBIO LA HORIENTACION
 
-        btnIniciar.setOnClickListener(v ->
-                Toast.makeText(this, "¡Arrancamos!", Toast.LENGTH_SHORT).show()
-        );
+        TextView textV = new TextView(this);
+        textV.setText(R.string.welcome_message); // ASIGNO EL NOMBRE
+
+        linearLayout.addView(textV);
+        Button button = new Button(this);
+        button.setText(R.string.button_message);
+
+        linearLayout.addView(button);
+
+        setContentView(linearLayout); // SETEO EL LAYOUT
+        }
+
+//        Button btnIniciar = findViewById(R.id.btnIniciar);
+//
+//        btnIniciar.setOnClickListener(v ->
+//                Toast.makeText(this, "¡Arrancamos!", Toast.LENGTH_SHORT).show()
+//        );
     }
-}
